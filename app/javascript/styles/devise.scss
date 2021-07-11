@@ -1,0 +1,26 @@
+.user{
+  line-height: 1.75rem;
+  position: relative;
+}
+
+.user-labeltext:before{
+  position: absolute;
+  content: "";
+  width: 40%;
+  flex-grow: 1;
+  height: 1px;
+  background-color: #929292;
+  top: 4.25rem;
+  left: 0;
+}
+
+.user-labeltext:after{
+  position: absolute;
+  content: "";
+  width: 40%;
+  flex-grow: 1;
+  height: 1px;
+  background-color: #929292;
+  top: 4.25rem;
+  right: 0;
+}

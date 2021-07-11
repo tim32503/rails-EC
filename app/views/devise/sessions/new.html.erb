@@ -1,26 +1,26 @@
-<section style="width: 20rem;" class="mx-auto">
-  <h2><%= t('.sign_in') %></h2>
+<section style="width: 20rem;" class="mx-auto text-center user">
+
+  <%= render "devise/shared/social_buttons" %>
+  <span class="user-labeltext">或</span>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="field mb-3">
-      <%= f.label :email, class: "form-label" %><br />
-      <%= f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email" %>
+    <div class="field my-3">
+      <%= f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email", placeholder: "信箱" %>
     </div>
 
-    <div class="field mb-3">
-      <%= f.label :password, class: "form-label" %><br />
-      <%= f.password_field :password, class: "form-control", autocomplete: "current-password" %>
+    <div class="field my-3">
+      <%= f.password_field :password, class: "form-control", autocomplete: "current-password", placeholder: "密碼" %>
     </div>
 
     <% if devise_mapping.rememberable? %>
-      <div class="field mb-3 form-check">
+      <div class="field my-3 form-check text-start">
         <%= f.check_box :remember_me, class: "form-check-input" %>
         <%= f.label :remember_me, class: "form-check-label" %>
       </div>
     <% end %>
 
-    <div class="actions mb-3">
-      <%= f.submit t('.sign_in'), class: "btn btn-primary" %>
+    <div class="actions my-3 d-grid">
+      <%= f.submit t('.sign_in'), class: "btn btn-warning" %>
     </div>
   <% end %>
 
