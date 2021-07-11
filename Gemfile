@@ -27,7 +27,12 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'foreman', '~> 0.87.2'
 # 會員註冊
-gem 'devise'
+gem 'devise', '~> 4.8'
+gem 'devise-i18n'
+gem 'omniauth', '~> 2.0', '>= 2.0.4'
+gem 'omniauth-facebook', '~> 8.0'
+gem 'omniauth-google-oauth2', '~> 1.0'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
