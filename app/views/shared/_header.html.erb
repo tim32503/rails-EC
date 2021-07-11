@@ -1,12 +1,11 @@
 <header class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <div class="container">
-    <a class="navbar-brand" href="#">Ⓡ EC 商城</a>
+    <%= link_to("Ⓡ EC 商城", root_path, class: "navbar-brand") %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
         <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
         <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
         <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
@@ -25,10 +24,10 @@
       </ul>
       <ul class="navbar-nav d-flex justify-content-end">
         <li>
-          <a href="#" class="btn btn-outline-light me-2">店家登入</a>
+          <a href="/users/sign_in" class="btn btn-outline-light me-2">店家登入</a>
         </li>
         <li>
-          <a href="#" class="btn btn-warning">店家註冊</a>
+          <a href="/users/sign_up" class="btn btn-warning">店家註冊</a>
         </li>
       </ul>
     </div>
