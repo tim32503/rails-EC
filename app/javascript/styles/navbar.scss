@@ -1,0 +1,9 @@
+// @import "bootstrap/scss/bootstrap";
+
+.navbar-store {
+  @apply navbar-nav d-flex justify-content-end;
+
+  & li > a {
+    @apply mx-1;
+  }
+}
