@@ -41,6 +41,9 @@ gem 'mini_magick', '~> 4.11'
 # 管理密碼或機密資訊
 gem "figaro", "~> 1.2"
 
+# 軟刪除
+gem "paranoia", "~> 2.2"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
