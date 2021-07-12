@@ -3,6 +3,12 @@ class User < ApplicationRecord
          :rememberable, :omniauthable, omniauth_providers: [:facebook]
   
   has_one :shop, dependent: :destroy
+
+  mount_uploader :avatar, AvatarUploader
+
+  after_create do
+    create_shop
+  end
   
   def self.from_omniauth(auth)
     user = find_or_initialize_by(provider: auth.provider, uid: auth.uid)

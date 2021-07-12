@@ -34,6 +34,10 @@ gem 'omniauth-facebook', '~> 8.0'
 gem 'omniauth-google-oauth2', '~> 1.0'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
+# 圖片上傳
+gem 'carrierwave', '~> 2.2', '>= 2.2.1'
+gem 'mini_magick', '~> 4.11'
+
 # 管理密碼或機密資訊
 gem "figaro", "~> 1.2"
 
