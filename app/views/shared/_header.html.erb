@@ -6,8 +6,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li><a href="#" class="nav-link px-2 text-white">訂單管理</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">商品管理</a></li>
+        <li><%= link_to "訂單管理", "#", class: "nav-link px-2 text-white" %></li>
+        <li><%= link_to "商品管理", products_path, class: "nav-link px-2 text-white" %></li>
         <li><%= link_to "賣場管理", edit_shop_path, class: "nav-link px-2 text-white" %></li>
       </ul>
       <ul class="navbar-nav d-flex justify-content-end">

@@ -1,0 +1,35 @@
+<section style="width: 20rem;" class="mx-auto">
+  <h2>編輯商品</h2>
+  <hr>
+
+  <%= form_for(@product) do |f| %>
+    <div class="field my-3">
+      <%= f.label :name, "商品名稱" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="field my-3">
+      <%= f.label :price, "價格" %>
+      <%= f.number_field :price, class: "form-control" %>
+    </div>
+
+    <div class="field my-3">
+      <%= f.label :quantity, "庫存數量" %>
+      <%= f.number_field :quantity, in: 1.0..999.0, step: 1.0, class: "form-control" %>
+    </div>
+
+    <div class="field my-3">  
+      <%= image_tag(@product.cover_url, class: 'image-preview') if @product.cover? %>
+    </div>
+
+    <div class="field my-3">
+      <%= f.label "商品圖片", class: "form-label" %><br />
+      <%= f.file_field :cover, class: "form-control" %>
+    </div>
+
+    <div class="actions my-3 d-grid">
+      <%= f.submit "儲存", class: "btn btn-warning" %>
+    </div>
+  <% end %>
+
+</section>
