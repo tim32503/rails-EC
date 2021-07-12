@@ -2,6 +2,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :rememberable, :omniauthable, omniauth_providers: [:facebook]
   
+  has_one :shop, dependent: :destroy
+  
   def self.from_omniauth(auth)
     user = find_or_initialize_by(provider: auth.provider, uid: auth.uid)
     user.email = auth.info.email
