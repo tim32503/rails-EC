@@ -1,0 +1,30 @@
+<section style="width: 20rem;" class="mx-auto">
+  <%= form_for(@shop) do |f| %>
+
+    <h2>賣場資訊</h2>
+
+    <div class="field my-3">  
+      <%= image_tag(@shop.cover_url, class: 'image-preview') if @shop.cover? %>
+    </div>
+
+    <div class="field my-3">
+      <%= f.label "賣場封面", class: "form-label" %><br />
+      <%= f.file_field :cover, class: "form-control" %>
+      <%= f.hidden_field :cover_cache %>
+    </div>
+
+    <div class="field my-3">
+      <%= f.label "賣場名稱", class: "form-label" %><br />
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+
+    <div class="field my-3">
+      <%= f.label "賣場介紹", class: "form-label" %><br />
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+
+    <div class="actions my-3">
+      <%= f.submit "更新", class: "btn btn-warning" %>
+    </div>
+  <% end %>
+</section>
