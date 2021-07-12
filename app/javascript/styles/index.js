@@ -1,3 +1,3 @@
 import "bootstrap/scss/bootstrap.scss"
-// import "./navbar.scss"
+import "./site.scss"
 import "./devise.scss"

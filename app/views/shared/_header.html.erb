@@ -6,14 +6,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li><a href="#" class="nav-link px-2 text-white">商店街</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">商店街</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">商店街</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">商店街</a></li>
+        <li><a href="#" class="nav-link px-2 text-white">訂單管理</a></li>
+        <li><a href="#" class="nav-link px-2 text-white">商品管理</a></li>
+        <li><%= link_to "賣場管理", edit_shop_path, class: "nav-link px-2 text-white" %></li>
       </ul>
       <ul class="navbar-nav d-flex justify-content-end">
         <% if user_signed_in? %>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown d-flex flex-row align-items-center">
+            <%= user_avatar %>
             <%= link_to "#{ (current_user.name.nil? ? "貴賓" : current_user.name) }, 您好", "#", class: "nav-link dropdown-toggle", id: "dropdown", role: "button", "aria-expanded": false, data: { "bs-toggle": "dropdown" } %>
             <ul class="dropdown-menu" aria-labelledby="dropdown">
               <li><%= link_to "個人資料", edit_user_registration_path, class: "dropdown-item" %></li>

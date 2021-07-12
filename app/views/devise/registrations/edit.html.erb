@@ -27,8 +27,18 @@
 
     <h2>個人資訊</h2>
 
+    <div class="field my-3">  
+      <%= image_tag(resource.avatar_url, class: 'image-preview') if resource.avatar? %>
+    </div>
+
     <div class="field my-3">
-      <%= f.label :name, class: "form-label" %><br />
+      <%= f.label "大頭照", class: "form-label" %><br />
+      <%= f.file_field :avatar, class: "form-control" %>
+      <%= f.hidden_field :avatar_cache %>
+    </div>
+
+    <div class="field my-3">
+      <%= f.label "個人名稱", class: "form-label" %><br />
       <%= f.text_field :name, class: "form-control" %>
     </div>
 
