@@ -44,6 +44,10 @@ gem "figaro", "~> 1.2"
 # 軟刪除
 gem "paranoia", "~> 2.2"
 
+# Faraday for web connections
+gem 'faraday'
+gem 'faraday_middleware'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
