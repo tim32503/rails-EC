@@ -1,0 +1,30 @@
+<h2>訂單管理</h2>
+<hr>
+<h3><%= "#{ @orders.size } 筆訂單" %></h3>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>序號</th>
+      <th>訂購人</th>
+      <th>商品名稱</th>
+      <th>訂購時間</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @orders.size == 0 %>
+      <tr>
+        <td colspan="4" class="text-center">目前尚無訂單</td>
+      </tr>
+    <% else %>
+      <% @orders.each_with_index do |order, index| %>
+        <tr class="align-middle">
+          <td><%= "##{ index + 1 }" %></td>
+          <td><%= order.name %></td>
+          <td><%= order.product %></td>
+          <td><%= order.created_at %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
