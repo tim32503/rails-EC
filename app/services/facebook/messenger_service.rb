@@ -9,9 +9,11 @@ module Facebook
     end
 
     def process_message
-      if postback_payload.start_with? "buy_#"
-        product_id = postback_payload.slice(5..-1).to_i
-        return send_message(order_message(product_id))
+      if !postback_payload.nil?
+        if postback_payload.start_with? "buy_#"
+          product_id = postback_payload.slice(5..-1).to_i
+          return send_message(order_message(product_id))
+        end
       end
 
       send_message(welcome_message)
