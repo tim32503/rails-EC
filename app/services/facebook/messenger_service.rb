@@ -9,12 +9,11 @@ module Facebook
     end
 
     def process_message
-      if(postback_payload == 'order')
-        return send_message(email_confirm_message)
+      if postback_payload.start_with? "buy_#"
+        product_id = postback_payload.slice(5..-1).to_i
+        return send_message(order_message(product_id))
       end
-      if email_message?
-        return send_message(message('please visit our website'))
-      end
+
       send_message(welcome_message)
     end
 
@@ -24,33 +23,7 @@ module Facebook
       Facebook::MessengerClient.new.send_message(@token, message)
     end
 
-    def message(text)
-      {
-          recipient: {
-              id: sender_id
-          },
-          message: {
-              attachment: {
-                  type: 'template',
-                  payload: {
-                      template_type: 'button',
-                      text: text,
-                      buttons: [{
-                              type: 'web_url',
-                              url: 'https://www.truecar.com/prices-new/porsche/718-cayman-pricing',
-                              title: 'TrueCar',
-                              messenger_extensions: true,
-                              webview_height_ratio: 'full'
-                          }]
-                  }
-              }
-          }
-      }
-    end
-
     def welcome_message
-      user = Facebook::MessengerClient.new.user_info(@token, sender_id)
-
       elements_array = []
       products = @shop.products
       products.each do |product|
@@ -59,8 +32,7 @@ module Facebook
           image_url: "https://rails-ec.herokuapp.com/#{ product.cover_url }",
           subtitle: product.description,
           buttons: [
-            { type: 'postback', title: '訂購商品', payload: 'order' }
-            # { type: 'web_url', title: '訂購商品', url: 'https://rails-ec.herokuapp.com/' }
+            { type: 'postback', title: '確認訂購', payload: "buy_##{ product.id }" }
           ]
         })
       end
@@ -81,10 +53,17 @@ module Facebook
       }
     end
 
-    def email_confirm_message
+    def order_message(product_id)
+      user = Facebook::MessengerClient.new.user_info(@token, sender_id)
+
+      order = @shop.orders.new(
+        name: "#{ user[:last_name] }#{ user[:first_name] }",
+        product_id: product_id
+      )
+
       {
-          recipient: { id: sender_id },
-          message: { text: 'Confirm Email', quick_replies: [ { content_type: 'user_email' } ]}
+        recipient: { id: sender_id },
+        message: { text: (order.save ? "訂購成功" : "訂購失敗") }
       }
     end
 
@@ -94,10 +73,6 @@ module Facebook
 
     def postback_payload
       @bot_message.dig(:messaging, 0, :postback, :payload)
-    end
-
-    def email_message?
-      @bot_message.dig(:messaging, 0, :message, :nlp, :entities, :email).present?
     end
 
     def format_number(number)
