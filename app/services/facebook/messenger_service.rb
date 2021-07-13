@@ -59,9 +59,10 @@ module Facebook
       user = Facebook::MessengerClient.new.user_info(@token, sender_id)
 
       order = @shop.orders.new(
-        name: "#{ user[:last_name] }#{ user[:first_name] }",
+        name: "#{ user["last_name"] }#{ user["first_name"] }",
         product_id: product_id
       )
+      p order
 
       {
         recipient: { id: sender_id },
