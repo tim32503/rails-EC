@@ -1,18 +1,18 @@
 module Facebook
   class MessengerClient
 
-    def send_message(page_id, message)
+    def send_message(token, message)
       begin
-        response = faraday_connection.post("me/messages?access_token=#{ get_page_access_token(page_id) }", message)
+        response = faraday_connection.post("me/messages?access_token=#{ token }", message)
         response.body if response&.success?
       rescue StandardError
         nil
       end
     end
 
-    def user_info(page_id, sender_id)
+    def user_info(token, sender_id)
       begin
-        response = faraday_connection.get("#{sender_id}?access_token=#{ get_page_access_token(page_id) }")
+        response = faraday_connection.get("#{sender_id}?access_token=#{ token }")
         response.body if response&.success?
       rescue StandardError
         nil
@@ -29,12 +29,6 @@ module Facebook
         faraday.adapter Faraday.default_adapter
       end
       connection
-    end
-
-    def get_page_access_token(page_id)
-      # shop = Shop.find_by(fb_page_id: page_id)
-      # return shop.fb_page_access_token
-      Shop.find_by(fb_page_id: page_id).fb_page_access_token
     end
 
     def graph_url

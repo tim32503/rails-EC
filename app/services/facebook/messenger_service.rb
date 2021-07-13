@@ -2,13 +2,14 @@ module Facebook
   class MessengerService
 
     def initialize(params)
-      @page_id = params[:entry].first
-      @page_id = @page_id[:id]
-      @bot_message = params[:entry].second
+      @bot_message = params[:entry].first
+      page_id = @bot_message.dig(:id)
+      @shop = Shop.find_by(fb_page_id: page_id)
+      @token = @shop.fb_page_access_token
     end
 
     def process_message
-      if(postback_payload == 'offers' || postback_payload == 'price')
+      if(postback_payload == 'order')
         return send_message(email_confirm_message)
       end
       if email_message?
@@ -20,7 +21,7 @@ module Facebook
     private
 
     def send_message(message)
-      Facebook::MessengerClient.new.send_message(@page_id, message)
+      Facebook::MessengerClient.new.send_message(@token, message)
     end
 
     def message(text)
@@ -48,29 +49,35 @@ module Facebook
     end
 
     def welcome_message
-      user = Facebook::MessengerClient.new.user_info(@page_id, sender_id)
+      user = Facebook::MessengerClient.new.user_info(@token, sender_id)
+
+      elements_array = []
+      products = @shop.products
+      products.each do |product|
+        elements_array.push({
+          title: "【#{ product.name }】 $#{ format_number(product.price) }",
+          image_url: "https://rails-ec.herokuapp.com/#{ product.cover_url }",
+          subtitle: product.description,
+          buttons: [
+            { type: 'postback', title: '訂購商品', payload: 'order' }
+            # { type: 'web_url', title: '訂購商品', url: 'https://rails-ec.herokuapp.com/' }
+          ]
+        })
+      end
+
       {
-          recipient: {
-              id: sender_id
-          },
-          message: {
-              attachment: {
-                  type: 'template',
-                  payload: {
-                      template_type: 'generic',
-                      elements: [
-                          {
-                             title: "Hi! #{user['first_name']} #{user['last_name']}, Welcome to TrueBuying",
-                             image_url: 'https://static.tcimg.net/vehicles/primary/dfb65a418bb4d8a0/2019-Porsche-718_Boxster-red-full_color-driver_side_front_quarter.png',
-                             buttons: [
-                               { type: 'postback', title: 'View Offers', payload: 'offers' },
-                               { type: 'postback', title: 'View Price', payload: 'price' }
-                             ]
-                          }
-                      ]
-                  }
-              }
+        recipient: {
+          id: sender_id
+        },
+        message: {
+          attachment: {
+            type: 'template',
+            payload: {
+              template_type: 'generic',
+              elements: elements_array
+            }
           }
+        }
       }
     end
 
@@ -93,8 +100,12 @@ module Facebook
       @bot_message.dig(:messaging, 0, :message, :nlp, :entities, :email).present?
     end
 
-    def message_params(params)
-      params.require(:entry).permit(:id, :messaging)
+    def format_number(number)
+      whole, decimal = number.to_s.split(".")
+      num_groups = whole.chars.to_a.reverse.each_slice(3)
+      whole_with_commas = num_groups.map(&:join).join(',').reverse
+      [whole_with_commas, decimal].compact.join(".")
     end
+
   end
 end
