@@ -2,6 +2,7 @@
   <%= form_for(@shop) do |f| %>
 
     <h2>賣場資訊</h2>
+    <hr>
 
     <div class="field my-3">  
       <%= image_tag(@shop.cover_url, class: 'image-preview') if @shop.cover? %>
@@ -10,7 +11,6 @@
     <div class="field my-3">
       <%= f.label "賣場封面", class: "form-label" %><br />
       <%= f.file_field :cover, class: "form-control" %>
-      <%= f.hidden_field :cover_cache %>
     </div>
 
     <div class="field my-3">
@@ -21,6 +21,13 @@
     <div class="field my-3">
       <%= f.label "賣場介紹", class: "form-label" %><br />
       <%= f.text_area :description, class: "form-control" %>
+    </div>
+
+    <h2>進階設定</h2>
+    <hr>
+    <div class="field my-3">
+      <%= f.label "粉絲專頁權杖", class: "form-label" %><br />
+      <%= f.text_field :fb_page_access_token, class: "form-control" %>
     </div>
 
     <div class="actions my-3">
