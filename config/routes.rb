@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resource :shop
   resources :products
   resources :facebook, only: [:index, :create]
+
+  post "/facebook/test", to: "facebook#test"
   
   root "pages#index"
 end

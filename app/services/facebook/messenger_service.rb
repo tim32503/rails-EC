@@ -2,7 +2,9 @@ module Facebook
   class MessengerService
 
     def initialize(params)
-      @bot_message = params[:entry].first
+      @page_id = params[:entry].first
+      @page_id = @page_id[:id]
+      @bot_message = params[:entry].second
     end
 
     def process_message
@@ -18,7 +20,7 @@ module Facebook
     private
 
     def send_message(message)
-      Facebook::MessengerClient.new.send_message(message)
+      Facebook::MessengerClient.new.send_message(@page_id, message)
     end
 
     def message(text)
@@ -46,7 +48,7 @@ module Facebook
     end
 
     def welcome_message
-      user = Facebook::MessengerClient.new.user_info(sender_id)
+      user = Facebook::MessengerClient.new.user_info(@page_id, sender_id)
       {
           recipient: {
               id: sender_id
@@ -89,6 +91,10 @@ module Facebook
 
     def email_message?
       @bot_message.dig(:messaging, 0, :message, :nlp, :entities, :email).present?
+    end
+
+    def message_params(params)
+      params.require(:entry).permit(:id, :messaging)
     end
   end
 end
