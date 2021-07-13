@@ -16,6 +16,6 @@ class ShopsController < ApplicationController
   private
 
   def shop_params
-    params.require(:shop).permit(:title, :description, :cover, :fb_page_access_token)
+    params.require(:shop).permit(:title, :description, :cover, :fb_page_access_token, :fb_page_id)
   end
 end

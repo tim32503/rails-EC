@@ -26,6 +26,11 @@
     <h2>進階設定</h2>
     <hr>
     <div class="field my-3">
+      <%= f.label "粉絲專頁編號", class: "form-label" %><br />
+      <%= f.text_field :fb_page_id, class: "form-control" %>
+    </div>
+
+    <div class="field my-3">
       <%= f.label "粉絲專頁權杖", class: "form-label" %><br />
       <%= f.text_field :fb_page_access_token, class: "form-control" %>
     </div>
