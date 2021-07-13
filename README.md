@@ -12,3 +12,8 @@
 - [x] 任意用戶可以在與前述粉絲團對話時，得到 Chatbot 回應，Chatbot 以 Carousel 方式顯示商品列表，並顯示確認訂單的按鈕。
 - [x] 任意用戶可以點擊確認訂單按鈕，於 Shop 中建立 Order，Order 的資訊包括 所屬關聯 Product、買家名稱 (From FB)、建立日期等。
 - [x] Manager 可以在 Shop 中瀏覽由用戶所建立之所有 Order
+
+## 參考資料
+- [為你自己學 Ruby on Rails](https://railsbook.tw/)
+- [FB ChatBot Webhook 串接建立](https://medium.com/driven-by-code/facebook-messenger-bot-using-webhooks-e481218ee7a2)
+- [[學習筆記] Carrierwave 套件](https://mrchuang.medium.com/%E6%B7%BA%E8%AB%87-carrierwave-%E5%A5%97%E4%BB%B6-62c5f0116e23)
