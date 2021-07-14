@@ -1,4 +1,6 @@
 class ShopsController < ApplicationController
+  before_action :authenticate_user!
+  
   def edit
     @shop = current_user.shop
   end
